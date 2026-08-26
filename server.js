@@ -179,6 +179,23 @@ app.put("/api/leads/:id/observacao", async function (req, res) {
     }
 
 });
+app.post("/api/login", function (req, res) {
+
+    const senha = req.body.senha;
+
+    if (senha === process.env.PAINEL_SENHA) {
+
+        return res.json({
+            sucesso: true
+        });
+
+    }
+
+    res.status(401).json({
+        erro: "Senha incorreta"
+    });
+
+});
 app.listen(PORT, function () {
 
     console.log("Servidor funcionando!");

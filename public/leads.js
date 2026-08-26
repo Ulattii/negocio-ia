@@ -1,3 +1,6 @@
+if (localStorage.getItem("logado") !== "sim") {
+    window.location.href = "/login.html";
+}
 const listaLeads = document.getElementById("lista-leads");
 const botaoLimpar = document.getElementById("limpar");
 const totalNovos = document.getElementById("total-novos");
