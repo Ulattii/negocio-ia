@@ -1,12 +1,12 @@
 const express = require("express");
-const fs = require("fs");
 const path = require("path");
+const db = require("./database");
 
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-const arquivoLeads = path.join(__dirname, "leads.json");
+
 
 // Permite receber dados em formato JSON
 app.use(express.json());
@@ -14,31 +14,31 @@ app.use(express.json());
 // Entrega os arquivos do nosso site
 app.use(express.static(path.join(__dirname, "public")));
 
-function lerLeads() {
-
-    const dados = fs.readFileSync(arquivoLeads, "utf8");
-
-    return JSON.parse(dados);
-}
-
-function salvarLeads(leads) {
-
-    fs.writeFileSync(
-        arquivoLeads,
-        JSON.stringify(leads, null, 2)
-    );
-}
 
 // Retorna todos os leads
-app.get("/api/leads", function (req, res) {
+app.get("/api/leads", async function (req, res) {
 
-    const leads = lerLeads();
+    try {
 
-    res.json(leads);
+        const resultado = await db.query(
+            "SELECT * FROM leads ORDER BY id DESC"
+        );
+
+        res.json(resultado.rows);
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        res.status(500).json({
+            erro: "Erro ao buscar leads"
+        });
+    }
+
 });
 
 // Recebe um novo lead
-app.post("/api/leads", function (req, res) {
+app.post("/api/leads", async function (req, res) {
 
     const novoLead = req.body;
 
@@ -47,78 +47,137 @@ app.post("/api/leads", function (req, res) {
         !novoLead.whatsapp ||
         !novoLead.interesse
     ) {
-
         return res.status(400).json({
             erro: "Dados incompletos"
         });
     }
 
-    const leads = lerLeads();
+    const status = "Novo";
+    const observacao = "";
+    const data = new Date().toISOString();
 
-    novoLead.id = Date.now();
-    novoLead.data = new Date().toISOString();
-    novoLead.status = "Novo";
+    try {
 
-    leads.push(novoLead);
+        const resultado = await db.query(
+            `
+            INSERT INTO leads
+            (nome, whatsapp, interesse, status, observacao, data)
+            VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING *
+            `,
+            [
+                novoLead.nome,
+                novoLead.whatsapp,
+                novoLead.interesse,
+                status,
+                observacao,
+                data
+            ]
+        );
 
-    salvarLeads(leads);
+        res.status(201).json(resultado.rows[0]);
 
-    res.status(201).json(novoLead);
+    } catch (erro) {
+
+        console.error(erro);
+
+        res.status(500).json({
+            erro: "Erro ao salvar lead"
+        });
+    }
+
 });
 
 // Apaga todos os leads
-app.delete("/api/leads", function (req, res) {
+app.delete("/api/leads", async function (req, res) {
 
-    salvarLeads([]);
+    try {
 
-    res.json({
-        mensagem: "Leads apagados"
-    });
+        await db.query("DELETE FROM leads");
+
+        res.json({
+            mensagem: "Leads apagados"
+        });
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        res.status(500).json({
+            erro: "Erro ao apagar leads"
+        });
+    }
+
 });
-app.put("/api/leads/:id/status", function (req, res) {
+app.put("/api/leads/:id/status", async function (req, res) {
 
     const id = Number(req.params.id);
     const novoStatus = req.body.status;
 
-    const leads = lerLeads();
+    try {
 
-    const lead = leads.find(function (item) {
-        return item.id === id;
-    });
+        const resultado = await db.query(
+            `
+            UPDATE leads
+            SET status = $1
+            WHERE id = $2
+            RETURNING *
+            `,
+            [novoStatus, id]
+        );
 
-    if (!lead) {
-        return res.status(404).json({
-            erro: "Lead não encontrado"
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                erro: "Lead não encontrado"
+            });
+        }
+
+        res.json(resultado.rows[0]);
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        res.status(500).json({
+            erro: "Erro ao atualizar status"
         });
     }
 
-    lead.status = novoStatus;
-
-    salvarLeads(leads);
-
-    res.json(lead);
-});app.put("/api/leads/:id/observacao", function (req, res) {
+});
+app.put("/api/leads/:id/observacao", async function (req, res) {
 
     const id = Number(req.params.id);
     const novaObservacao = req.body.observacao;
 
-    const leads = lerLeads();
+    try {
 
-    const lead = leads.find(function (item) {
-        return item.id === id;
-    });
+        const resultado = await db.query(
+            `
+            UPDATE leads
+            SET observacao = $1
+            WHERE id = $2
+            RETURNING *
+            `,
+            [novaObservacao, id]
+        );
 
-    if (!lead) {
-        return res.status(404).json({
-            erro: "Lead não encontrado"
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                erro: "Lead não encontrado"
+            });
+        }
+
+        res.json(resultado.rows[0]);
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        res.status(500).json({
+            erro: "Erro ao atualizar observação"
         });
     }
 
-    lead.observacao = novaObservacao;
-
-    salvarLeads(leads);
-
-    res.json(lead);
 });
 app.listen(PORT, function () {
 
