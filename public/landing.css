@@ -187,9 +187,72 @@ footer {
 
     color: #777;
 }
+.vantagens {
+    max-width: 1200px;
+    margin: auto;
+    padding: 70px 30px;
+}
+
+.vantagens-conteudo {
+    background: #111;
+    color: white;
+
+    padding: 50px;
+
+    border-radius: 18px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 50px;
+}
+
+.vantagens-texto h2 {
+    font-size: 38px;
+    margin: 20px 0;
+}
+
+.vantagens-texto p {
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.vantagens-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.vantagem-item {
+    display: flex;
+    gap: 18px;
+}
+
+.vantagem-item strong {
+    font-size: 22px;
+    color: #aaa;
+}
+
+.vantagem-item h3 {
+    margin: 0 0 6px 0;
+}
+
+.vantagem-item p {
+    margin: 0;
+    color: #bbb;
+    line-height: 1.5;
+}
 
 
 @media (max-width: 800px) {
+    .vantagens-conteudo {
+    grid-template-columns: 1fr;
+    padding: 30px;
+}
+
+.vantagens-texto h2 {
+    font-size: 30px;
+}
 
     .hero {
         padding-top: 50px;
