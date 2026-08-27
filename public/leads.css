@@ -4,7 +4,7 @@
 
 body {
     margin: 0;
-    padding: 40px;
+    padding: 20px;
 
     font-family: Arial, sans-serif;
 
@@ -12,7 +12,8 @@ body {
 }
 
 .painel {
-    max-width: 1000px;
+    width: 100%;
+    max-width: 1400px;
 
     margin: auto;
 
@@ -226,4 +227,64 @@ button:hover {
     .botao-sair {
         width: 100%;
     }
+}
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+th,
+td {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+    width: 10%;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    width: 18%;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    width: 15%;
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+    width: 14%;
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+    width: 16%;
+}
+
+th:nth-child(6),
+td:nth-child(6) {
+    width: 17%;
+}
+
+th:nth-child(7),
+td:nth-child(7) {
+    width: 10%;
+}
+
+.observacao {
+    width: 100%;
+    max-width: 100%;
+}
+
+.status {
+    width: 100%;
+    max-width: 150px;
+}
+
+.whatsapp {
+    max-width: 100%;
+    text-align: center;
 }
