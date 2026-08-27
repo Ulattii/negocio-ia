@@ -1,6 +1,7 @@
 if (localStorage.getItem("logado") !== "sim") {
     window.location.href = "/login.html";
 }
+const botaoSair = document.getElementById("sair");
 const listaLeads = document.getElementById("lista-leads");
 const botaoLimpar = document.getElementById("limpar");
 const totalNovos = document.getElementById("total-novos");
@@ -285,5 +286,11 @@ campoBusca.addEventListener("input", function () {
     textoBusca = campoBusca.value;
 
     carregarLeads();
+});
+botaoSair.addEventListener("click", function () {
+
+    localStorage.removeItem("logado");
+
+    window.location.href = "/login.html";
 });
 carregarLeads();
