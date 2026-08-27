@@ -102,6 +102,10 @@ else if (lead.status === "Perdido") {
 
         <td>${lead.interesse}</td>
 
+        <td>${lead.modelo || "-"}</td>
+
+        <td>${lead.ano || "-"}</td>
+
         <td>${data}</td>
 
         <td>
