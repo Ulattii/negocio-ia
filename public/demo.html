@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Painel de Leads</title>
+
+    <link rel="stylesheet" href="leads.css">
+</head>
+
+<body>
+
+    <div class="painel">
+
+        <div class="topo-painel">
+
+    <div>
+        <h1>Painel Demo</h1>
+        <p>Explore uma demonstração do sistema com dados fictícios.</p>
+    </div>
+
+
+</div>
+
+        <div class="resumo">
+
+    <div class="card">
+        <span>Novos</span>
+        <strong id="total-novos">0</strong>
+    </div>
+
+    <div class="card">
+        <span>Em atendimento</span>
+        <strong id="total-atendimento">0</strong>
+    </div>
+
+    <div class="card">
+        <span>Vendas fechadas</span>
+        <strong id="total-vendas">0</strong>
+    </div>
+
+    <div class="card">
+        <span>Perdidos</span>
+        <strong id="total-perdidos">0</strong>
+    </div>
+
+</div>
+<div class="filtros">
+    <button class="filtro ativo" data-status="Todos">Todos</button>
+    <button class="filtro" data-status="Novo">Novos</button>
+    <button class="filtro" data-status="Em atendimento">Em atendimento</button>
+    <button class="filtro" data-status="Venda fechada">Venda fechada</button>
+    <button class="filtro" data-status="Perdido">Perdidos</button>
+</div>
+<div class="busca">
+    <input
+        type="text"
+        id="campo-busca"
+        placeholder="Buscar por nome, WhatsApp ou interesse..."
+    >
+</div>
+        <table>
+
+            <thead>
+                <tr>
+    <th>Nome</th>
+    <th>WhatsApp</th>
+    <th>Interesse</th>
+    <th>Modelo</th>
+    <th>Ano</th>
+    <th>Data</th>
+    <th>Status</th>
+    <th>Observação</th>
+    <th>Ação</th>
+</tr>
+            </thead>
+
+            <tbody id="lista-leads">
+            </tbody>
+
+        </table>
+
+    
+
+    </div>
+
+    <script src="demo.js"></script>
+
+</body>
+
+</html>
