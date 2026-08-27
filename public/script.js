@@ -95,8 +95,7 @@ function enviarMensagem() {
 
         etapa = "aguardando_servico";
 
-        resposta =
-            "Claro! 😄 Qual serviço ou produto você está procurando?";
+        resposta = "Claro! 🚗 Qual serviço você precisa? Por exemplo: revisão, troca de óleo, freios, pneus ou outro problema.";
 
     }
 
