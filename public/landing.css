@@ -242,9 +242,61 @@ footer {
     color: #bbb;
     line-height: 1.5;
 }
+.personalizado {
+    max-width: 1200px;
+    margin: auto;
+    padding: 70px 30px;
+}
+
+.personalizado-conteudo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+
+    background: white;
+
+    padding: 45px;
+
+    border-radius: 18px;
+
+    border: 1px solid #e5e5e5;
+}
+
+.personalizado h2 {
+    font-size: 36px;
+    margin: 20px 0;
+}
+
+.personalizado p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.personalizado-itens {
+    display: grid;
+    gap: 14px;
+}
+
+.personalizado-itens span {
+    padding: 14px 16px;
+
+    background: #f7f7f7;
+
+    border-radius: 9px;
+
+    border: 1px solid #e8e8e8;
+}
 
 
 @media (max-width: 800px) {
+    .personalizado-conteudo {
+    grid-template-columns: 1fr;
+    padding: 30px;
+}
+
+.personalizado h2 {
+    font-size: 30px;
+}
     .vantagens-conteudo {
     grid-template-columns: 1fr;
     padding: 30px;
