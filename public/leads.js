@@ -94,6 +94,13 @@ else if (lead.status === "Perdido") {
                     ? new Date(lead.data).toLocaleString("pt-BR")
                     : "Sem data";
 
+                    const mensagemWhatsApp =
+    `Olá, ${lead.nome}! Vi que você pediu orçamento para ${lead.interesse}` +
+    `${lead.modelo ? " no " + lead.modelo : ""}` +
+    `${lead.ano ? " " + lead.ano : ""}. Como posso te ajudar?`;
+
+const mensagemCodificada = encodeURIComponent(mensagemWhatsApp);
+
                 listaLeads.innerHTML += `
     <tr>
         <td>${lead.nome}</td>
@@ -142,7 +149,7 @@ else if (lead.status === "Perdido") {
         <td>
             <a
                 class="whatsapp"
-                href="https://wa.me/${numeroWhatsApp}"
+                href="https://wa.me/${numeroWhatsApp}?text=${mensagemCodificada}"
                 target="_blank"
             >
                 Chamar no WhatsApp
