@@ -286,6 +286,28 @@ footer {
 
     border: 1px solid #e8e8e8;
 }
+.botao-contato {
+    display: inline-block;
+
+    margin-left: 10px;
+
+    padding: 14px 22px;
+
+    border-radius: 9px;
+
+    background: white;
+    color: #111;
+
+    border: 1px solid #ddd;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+.botao-contato:hover {
+    background: #f2f2f2;
+}
 
 
 @media (max-width: 800px) {
@@ -329,6 +351,12 @@ footer {
 
 
 @media (max-width: 500px) {
+    .botao-contato {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+    text-align: center;
+}
 
     .topo {
         padding: 20px;
