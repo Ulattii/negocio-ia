@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const db = require("./database");
+const session = require("express-session");
 
 const app = express();
 
@@ -10,13 +11,33 @@ const PORT = process.env.PORT || 3000;
 
 // Permite receber dados em formato JSON
 app.use(express.json());
+app.use(session({
+    secret: process.env.SESSION_SECRET || "segredo-local",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 8
+    }
+}));
 
 // Entrega os arquivos do nosso site
 app.use(express.static(path.join(__dirname, "public")));
 
 
 // Retorna todos os leads
-app.get("/api/leads", async function (req, res) {
+function exigirLogin(req, res, next) {
+
+    if (req.session.logado) {
+        return next();
+    }
+
+    res.status(401).json({
+        erro: "Não autorizado"
+    });
+}
+app.get("/api/leads", exigirLogin, async function (req, res) {
 
     try {
 
@@ -89,7 +110,7 @@ app.post("/api/leads", async function (req, res) {
 });
 
 // Apaga todos os leads
-app.delete("/api/leads", async function (req, res) {
+app.delete("/api/leads", exigirLogin, async function (req, res) {
 
     try {
 
@@ -109,7 +130,7 @@ app.delete("/api/leads", async function (req, res) {
     }
 
 });
-app.put("/api/leads/:id/status", async function (req, res) {
+app.put("/api/leads/:id/status", exigirLogin, async function (req, res) {
 
     const id = Number(req.params.id);
     const novoStatus = req.body.status;
@@ -144,7 +165,7 @@ app.put("/api/leads/:id/status", async function (req, res) {
     }
 
 });
-app.put("/api/leads/:id/observacao", async function (req, res) {
+app.put("/api/leads/:id/observacao", exigirLogin, async function (req, res) {
 
     const id = Number(req.params.id);
     const novaObservacao = req.body.observacao;
@@ -185,14 +206,26 @@ app.post("/api/login", function (req, res) {
 
     if (senha === process.env.PAINEL_SENHA) {
 
+        req.session.logado = true;
+
         return res.json({
             sucesso: true
         });
-
     }
 
     res.status(401).json({
         erro: "Senha incorreta"
+    });
+
+});
+app.post("/api/logout", function (req, res) {
+
+    req.session.destroy(function () {
+
+        res.json({
+            sucesso: true
+        });
+
     });
 
 });

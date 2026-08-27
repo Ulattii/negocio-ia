@@ -40,11 +40,9 @@ function fazerLogin() {
     })
     .then(function () {
 
-        localStorage.setItem("logado", "sim");
+    window.location.href = "/leads.html";
 
-        window.location.href = "/leads.html";
-
-    })
+})
     .catch(function () {
 
         mensagemErro.textContent =

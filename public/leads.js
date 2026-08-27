@@ -1,6 +1,4 @@
-if (localStorage.getItem("logado") !== "sim") {
-    window.location.href = "/login.html";
-}
+
 const botaoSair = document.getElementById("sair");
 const listaLeads = document.getElementById("lista-leads");
 const botaoLimpar = document.getElementById("limpar");
@@ -19,9 +17,15 @@ function carregarLeads() {
 
     fetch("/api/leads")
 
-        .then(function (resposta) {
-            return resposta.json();
-        })
+    .then(function (resposta) {
+
+        if (resposta.status === 401) {
+            window.location.href = "/login.html";
+            throw new Error("Não autorizado");
+        }
+
+        return resposta.json();
+    })
 
         .then(function (leads) {
 
@@ -289,8 +293,12 @@ campoBusca.addEventListener("input", function () {
 });
 botaoSair.addEventListener("click", function () {
 
-    localStorage.removeItem("logado");
+    fetch("/api/logout", {
+        method: "POST"
+    })
+    .then(function () {
+        window.location.href = "/login.html";
+    });
 
-    window.location.href = "/login.html";
 });
 carregarLeads();
