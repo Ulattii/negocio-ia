@@ -7,7 +7,9 @@ let etapa = "inicio";
 let lead = {
     nome: "",
     whatsapp: "",
-    interesse: ""
+    interesse: "",
+    modelo: "",
+    ano: ""
 };
 
 botaoEnviar.addEventListener("click", enviarMensagem);
@@ -35,14 +37,31 @@ function enviarMensagem() {
     // Cliente está informando qual serviço deseja
     if (etapa === "aguardando_servico") {
 
-        lead.interesse = mensagem;
+    lead.interesse = mensagem;
 
-        etapa = "aguardando_nome";
+    etapa = "aguardando_modelo";
 
-        resposta =
-            "Perfeito! Para preparar seu atendimento, qual é o seu nome?";
+    resposta =
+        "Perfeito! Qual é o modelo do seu carro?";
+}
+else if (etapa === "aguardando_modelo") {
 
-    }
+    lead.modelo = mensagem;
+
+    etapa = "aguardando_ano";
+
+    resposta =
+        "Certo! Qual é o ano do veículo?";
+}
+else if (etapa === "aguardando_ano") {
+
+    lead.ano = mensagem;
+
+    etapa = "aguardando_nome";
+
+    resposta =
+        "Ótimo! Agora, qual é o seu nome?";
+}
 
     // Cliente está informando o nome
     else if (etapa === "aguardando_nome") {
@@ -79,10 +98,12 @@ function enviarMensagem() {
             etapa = "inicio";
 
             lead = {
-                nome: "",
-                whatsapp: "",
-                interesse: ""
-            };
+    nome: "",
+    whatsapp: "",
+    interesse: "",
+    modelo: "",
+    ano: ""
+};
         }
 
     }

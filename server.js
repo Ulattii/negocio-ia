@@ -82,18 +82,20 @@ app.post("/api/leads", async function (req, res) {
         const resultado = await db.query(
             `
             INSERT INTO leads
-            (nome, whatsapp, interesse, status, observacao, data)
-            VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING *
+(nome, whatsapp, interesse, modelo, ano, status, observacao, data)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+RETURNING *
             `,
             [
-                novoLead.nome,
-                novoLead.whatsapp,
-                novoLead.interesse,
-                status,
-                observacao,
-                data
-            ]
+    novoLead.nome,
+    novoLead.whatsapp,
+    novoLead.interesse,
+    novoLead.modelo,
+    novoLead.ano,
+    status,
+    observacao,
+    data
+]
         );
 
         res.status(201).json(resultado.rows[0]);

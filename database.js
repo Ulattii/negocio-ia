@@ -15,11 +15,22 @@ async function iniciarBanco() {
             nome TEXT NOT NULL,
             whatsapp TEXT NOT NULL,
             interesse TEXT NOT NULL,
+            modelo TEXT,
+            ano TEXT,
             status TEXT NOT NULL,
             observacao TEXT,
             data TEXT NOT NULL
         )
     `);
+    await pool.query(`
+    ALTER TABLE leads
+    ADD COLUMN IF NOT EXISTS modelo TEXT
+`);
+
+await pool.query(`
+    ALTER TABLE leads
+    ADD COLUMN IF NOT EXISTS ano TEXT
+`);
 
     console.log("Banco PostgreSQL conectado!");
 }
