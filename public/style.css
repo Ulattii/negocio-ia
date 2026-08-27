@@ -20,7 +20,7 @@ h1 {
 }
 
 #conversa {
-    width: 500px;
+    width: min(500px, 100%);
     height: 400px;
 
     background: white;
@@ -35,7 +35,7 @@ h1 {
 }
 
 #mensagem {
-    width: 390px;
+    width: min(390px, 100%);
 
     padding: 12px;
 
@@ -130,4 +130,38 @@ h1 {
     color: #c62828;
     margin-top: 12px;
     margin-bottom: 0;
+}
+@media (max-width: 600px) {
+
+    body {
+        padding: 16px;
+        align-items: stretch;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 32px;
+        margin-top: 20px;
+    }
+
+    #conversa {
+        width: 100%;
+        height: 50vh;
+        padding: 16px;
+    }
+
+    #conversa p {
+        overflow-wrap: anywhere;
+        line-height: 1.4;
+    }
+
+    #mensagem {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    #enviar {
+        width: 100%;
+        margin-top: 10px;
+    }
 }
