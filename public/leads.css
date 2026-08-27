@@ -13,7 +13,7 @@ body {
 
 .painel {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1000px;
 
     margin: auto;
 
@@ -196,7 +196,7 @@ button:hover {
     }
 
     .painel {
-        padding: 20px;
+        padding: 40px;
     }
 
     .topo-painel {
@@ -230,7 +230,9 @@ button:hover {
 }
 table {
     width: 100%;
-    table-layout: fixed;
+    min-width: 1100px;
+    table-layout: auto;
+    border-collapse: collapse;
 }
 
 th,
@@ -238,42 +240,6 @@ td {
     overflow-wrap: anywhere;
     word-break: break-word;
 }
-
-th:nth-child(1),
-td:nth-child(1) {
-    width: 10%;
-}
-
-th:nth-child(2),
-td:nth-child(2) {
-    width: 18%;
-}
-
-th:nth-child(3),
-td:nth-child(3) {
-    width: 15%;
-}
-
-th:nth-child(4),
-td:nth-child(4) {
-    width: 14%;
-}
-
-th:nth-child(5),
-td:nth-child(5) {
-    width: 16%;
-}
-
-th:nth-child(6),
-td:nth-child(6) {
-    width: 17%;
-}
-
-th:nth-child(7),
-td:nth-child(7) {
-    width: 10%;
-}
-
 .observacao {
     width: 100%;
     max-width: 100%;
@@ -285,6 +251,29 @@ td:nth-child(7) {
 }
 
 .whatsapp {
+    width: 100%;
     max-width: 100%;
     text-align: center;
+}
+.painel {
+    overflow-x: auto;
+}
+
+th,
+td {
+    white-space: normal;
+    word-break: normal;
+}
+
+.observacao {
+    width: 170px;
+    min-width: 170px;
+}
+
+.status {
+    min-width: 120px;
+}
+
+.whatsapp {
+    min-width: 100px;
 }
